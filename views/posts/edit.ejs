@@ -1,6 +1,11 @@
 <h1>Edit Post</h1>
 
-<form method="POST" action="/posts/<%= post.id %>?_method=PUT" id="postEditForm">
+<form 
+  method="POST" 
+  action="/posts/<%= post.id %>?_method=PUT" 
+  id="postEditForm"
+  enctype="multipart/form-data"
+  >
   <div>
     <input type="text" name="post[title]" value="<%= post.title %>" placeholder="Title" >
   </div>
@@ -17,7 +22,7 @@
         <label for="image<%= i %>">Delete?</label>
         <input 
           type="checkbox" 
-          name="deleteImage" 
+          name="deleteImages[]" 
           id="image<%= i %>" 
           class="imageDeleteCheckbox"
           value="<%= image.public_id %>"

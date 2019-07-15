@@ -44,7 +44,45 @@ module.exports = {
   },
   /* PUT - posts update - /posts/:id */
   async postUpdate(req, res, next){
-    let post = await Post.findByIdAndUpdate(req.params.id, req.body.post, {new: true});
+    //find post to be updated by its id
+    let post = await Post.findById(req.params.id);
+    //check if theres images to be deleted
+    //comes from form : <input type="checkbox" name="deleteImages[] ......" 
+    if (req.body.deleteImages && req.body.deleteImages.length) {
+      let deleteImages = req.body.deleteImages;
+      //loop over deleteImages
+      for (const imagePublic_id of deleteImages) {
+        // delete images from cloudinary
+        await cloudinary.v2.uploader.destroy(imagePublic_id);
+        //delete image from post's images array
+        for (const img of post.images) {
+          if (img.public_id === imagePublic_id) {
+            let index = post.images.indexOf(img)
+            post.images.splice(index, 1)
+          }
+        }
+      }
+    }
+    //check if theres images to be uploaded
+    if(req.files){
+      // iterate over req.files & upload 1 by 1
+      for (const file of req.files) {
+        let image = await cloudinary.v2.uploader.upload(file.path);
+        // add images to post.images array
+        post.images.push({
+          url: image.secure_url,
+          public_id: image.public_id
+        })
+      }
+    }
+    //update the post with new(or exisitng in edit form) values
+    post.title = req.body.post.title;
+    post.description = req.body.post.description;
+    post.price = req.body.post.price;
+    post.location = req.body.post.location;
+    // save the updated post
+    post.save();
+    //when all done, redirect to show page
     res.redirect(`/posts/${post.id}`)
   },
   /* DELETE - posts destroy - /posts/:id */
