@@ -86,7 +86,12 @@ module.exports = {
   },
   /* DELETE - posts destroy - /posts/:id */
   async postDestroy(req, res, next){
-    await Post.findByIdAndRemove(req.params.id);
+    let postToDelete = await Post.findById(req.params.id);
+    for(const image of postToDelete.images){
+      await cloudinary.v2.uploader.destroy(image.public_id);
+    }
+    await postToDelete.remove();
+    //redirect after images of the post deleted from cloudinary and post itsef deleted
     res.redirect('/posts')
   }
 }
