@@ -49,9 +49,8 @@ module.exports = {
     //check if theres images to be deleted
     //comes from form : <input type="checkbox" name="deleteImages[] ......" 
     if (req.body.deleteImages && req.body.deleteImages.length) {
-      let deleteImages = req.body.deleteImages;
       //loop over deleteImages
-      for (const imagePublic_id of deleteImages) {
+      for (const imagePublic_id of req.body.deleteImages) {
         // delete images from cloudinary
         await cloudinary.v2.uploader.destroy(imagePublic_id);
         //delete image from post's images array
