@@ -12,8 +12,7 @@ const postSchema = new mongoose.Schema({
     }
    ],
   location: String,
-  lat: Number,
-  lng: Number,
+  coordinates : Array,
   author: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'

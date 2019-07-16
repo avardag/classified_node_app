@@ -1,4 +1,6 @@
 const Post = require("../models/post");
+const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
+const geocodingClient = mbxGeocoding({ accessToken: process.env.MBX_ACCESS_TOKEN });
 const cloudinary = require("cloudinary");
 cloudinary.config({
   cloud_name: 'micober',
@@ -28,6 +30,14 @@ module.exports = {
         public_id: image.public_id
       })
     }
+    let response = await geocodingClient
+      .forwardGeocode({
+        query: req.body.post.location,
+        limit: 1
+      })
+      .send()
+    // assign coordinates arr got from geoCoding to req.body object
+    req.body.post.coordinates = response.body.features[0].geometry.coordinates
     //use req.body to create new post
     let newPost = await Post.create(req.body.post);
     res.redirect(`/posts/${newPost.id}`)
@@ -74,11 +84,22 @@ module.exports = {
         })
       }
     }
+    //check if location was updated in edit form
+    if (req.body.post.location !== post.location) { //post.location -> from DB
+      let response = await geocodingClient
+        .forwardGeocode({
+          query: req.body.post.location,
+          limit: 1
+        })
+        .send()
+      // assign coordinates arr got from geoCoding to req.body object
+      post.coordinates = response.body.features[0].geometry.coordinates
+      post.location = req.body.post.location;
+    }
     //update the post with new(or exisitng in edit form) values
     post.title = req.body.post.title;
     post.description = req.body.post.description;
     post.price = req.body.post.price;
-    post.location = req.body.post.location;
     // save the updated post
     post.save();
     //when all done, redirect to show page
