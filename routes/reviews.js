@@ -1,20 +1,9 @@
 const express = require('express');
 const router = express.Router({mergeParams: true});
 
-/* GET reviews index /posts/:id/reviews */
-router.get('/', (req, res, next) => {
-  // res.render('index', { title: 'Pin Shop - Home' });
-  res.send("INDEX /reviews")
-});
-
 /* POST - create - /posts/:id/reviews */
 router.post('/', (req, res, next) => {
   res.send("POST(create) /posts/:id/reviews")
-});
-
-/* GET - edit - /posts/:id/reviews/:reviews_id/edit */
-router.get('/:review_id/edit', (req, res, next) => {
-  res.send("EDIT posts/:id/reviews/:reviews_id/edit")
 });
 
 /* PUT - reviews update - /posts/:id/reviews/:reviews_id */
