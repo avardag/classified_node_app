@@ -40,6 +40,7 @@ module.exports = {
     req.body.post.coordinates = response.body.features[0].geometry.coordinates
     //use req.body to create new post
     let newPost = await Post.create(req.body.post);
+    req.session.success = "Post created successfully!"
     res.redirect(`/posts/${newPost.id}`)
   },
   /* GET - show - /posts/:id. */
