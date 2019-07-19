@@ -23,3 +23,26 @@
   </form>
 </div>
 
+<h2>Reviews</h2>
+<h2>Create a review</h2>
+<form action="/posts/<%= post.id %>/reviews" method="post">
+  <div>
+    <textarea name="review[body]" id=""></textarea>
+  </div>
+  <div>
+    <input type="number" name="review[rating]" step="1" min="1" max="5" id="">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
+<!-- dipslay all reviews -->
+<h3>Reviews</h3>
+<% post.reviews.forEach(function(review){ %>
+  <div>
+    <%= review.body %>
+    Rating: <%= review.rating %>
+  </div>
+<% }) %>
+
+

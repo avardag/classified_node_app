@@ -45,7 +45,11 @@ module.exports = {
   },
   /* GET - show - /posts/:id. */
   async postShow(req, res, next){
-    let post = await Post.findById(req.params.id);
+    let post = await Post.findById(req.params.id)
+      .populate({ //join reviews table
+        path:'reviews',
+        options: { sort: { '_id': -1 } }
+      });
     res.render("posts/show", { post })
   },
   /* GET - edit - /posts/:id/edit */
