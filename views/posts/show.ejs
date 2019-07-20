@@ -45,24 +45,33 @@
     Rating: <%= review.rating %>
     <!-- check if user is autorized to edit review -->
     <% if(review.author.equals(currentUser._id)){ %>
-    <div>
-      <button class="toggle-edit-form">Edit</button>
-      <form 
-        action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" 
-        method="post"
-        class="edit-review-form"
-        >
-        <div>
-          <textarea name="review[body]" id=""><%= review.body %></textarea>
-        </div>
-        <div>
-          <input type="number" name="review[rating]" value="<%= review.rating %>" step="1" min="1" max="5" id="">
-        </div>
-        <div>
-          <input type="submit" value="Update">
-        </div>
-      </form>
-    </div>
+      <div>
+        <button class="toggle-edit-form">Edit</button>
+        <form 
+          action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" 
+          method="post"
+          class="edit-review-form"
+          >
+          <div>
+            <textarea name="review[body]" id=""><%= review.body %></textarea>
+          </div>
+          <div>
+            <input type="number" name="review[rating]" value="<%= review.rating %>" step="1" min="1" max="5" id="">
+          </div>
+          <div>
+            <input type="submit" value="Update">
+          </div>
+        </form>
+        <!-- Delete a review -->
+        <form 
+          action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=DELETE" 
+          method="post"
+          >
+          <div>
+            <input type="submit" value="Delete">
+          </div>
+        </form>
+      </div>
     <% } %>
     <hr>
   </div>
