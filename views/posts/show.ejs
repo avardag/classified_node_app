@@ -43,6 +43,8 @@
     Author: <%= review.author.username %> <br>
     <%= review.body %> <br>
     Rating: <%= review.rating %>
+    <!-- check if user is autorized to edit review -->
+    <% if(review.author.equals(currentUser._id)){ %>
     <div>
       <button class="toggle-edit-form">Edit</button>
       <form 
@@ -61,6 +63,7 @@
         </div>
       </form>
     </div>
+    <% } %>
     <hr>
   </div>
   
