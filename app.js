@@ -66,6 +66,13 @@ passport.deserializeUser(User.deserializeUser());
 
 //set local variables MW
 app.use(function(req, res, next) {
+  //TEMPORARILY
+  req.user = {
+    '_id': '5d27c31e76af7d2fc35e29b1',
+    'username':"Alex23"
+  }
+  res.locals.currentUser = req.user;
+  //END TEMPORARILY
   //set default page title
   res.locals.title = "Pin-Shop"
   //set success flash messages

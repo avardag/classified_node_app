@@ -40,9 +40,28 @@
 <h3>Reviews</h3>
 <% post.reviews.forEach(function(review){ %>
   <div>
-    <%= review.body %>
+    Author: <%= review.author.username %> <br>
+    <%= review.body %> <br>
     Rating: <%= review.rating %>
+    <div>
+      <button class="toggle-edit-form">Edit</button>
+      <form 
+        action="/posts/<%= post.id %>/reviews/<%= review.id %>?_method=PUT" 
+        method="post"
+        class="edit-review-form"
+        >
+        <div>
+          <textarea name="review[body]" id=""><%= review.body %></textarea>
+        </div>
+        <div>
+          <input type="number" name="review[rating]" value="<%= review.rating %>" step="1" min="1" max="5" id="">
+        </div>
+        <div>
+          <input type="submit" value="Update">
+        </div>
+      </form>
+    </div>
+    <hr>
   </div>
+  
 <% }) %>
-
-

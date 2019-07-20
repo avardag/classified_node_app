@@ -18,3 +18,16 @@ new mapboxgl.Marker(el)
   .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
   .setHTML('<h3>' + post.title + '</h3><p>' + post.location + '</p>'))
   .addTo(map);
+
+//Toggle Edit review form
+let toggleFormButton = document.querySelectorAll(".toggle-edit-form");
+
+toggleFormButton.forEach(function(btn) {
+  btn.addEventListener("click", function(evt){
+    // console.log(evt.target.innerText)
+    evt.target.innerText === 'Edit'? evt.target.innerText = 'Cancel': evt.target.innerText='Edit'
+    //toggle visibility of the edit form
+    // console.log(evt.target.nextElementSibling)
+    evt.target.nextElementSibling.classList.toggle('edit-review-form')
+  })
+})

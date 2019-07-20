@@ -1,7 +1,4 @@
-body {
-  margin: 0;
-  padding: 0;
-}
+
 #map {
   width: 500px;
   height: 400px;
@@ -21,4 +18,8 @@ body {
 .mapboxgl-popup-content {
   text-align: center;
   font-family: 'Open Sans', sans-serif;
+}
+
+.edit-review-form{
+  display: none;
 }

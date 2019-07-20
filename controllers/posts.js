@@ -48,7 +48,11 @@ module.exports = {
     let post = await Post.findById(req.params.id)
       .populate({ //join reviews table
         path:'reviews',
-        options: { sort: { '_id': -1 } }
+        options: { sort: { '_id': -1 } },
+        populate:{ //join users collection for review authorss
+          path: 'author',
+          model: 'User'
+        }
       });
     res.render("posts/show", { post })
   },
