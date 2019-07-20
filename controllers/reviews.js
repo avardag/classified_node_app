@@ -6,6 +6,17 @@ module.exports = {
   async reviewCreate(req, res, next){
     //find a post by its ID
     let post = await Post.findById(req.params.id)
+      .populate('reviews')//join review collections, to check if user alredy has a review
+      .exec()
+      //check if the user already has a review of this post
+      let userReviews = post.reviews.filter((review)=>{
+        return review.author.equals(req.user._id)
+      });
+      let hasReview = userReviews.length > 0 ? true: false;
+      if(hasReview){
+        req.session.error = 'Sorry, you can only create one review per post'
+        return res.redirect(`/posts/${post.id}`);
+      }
     //create a review
     req.body.review.author = req.user._id;
     let newReview = await Review.create(req.body.review);
