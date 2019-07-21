@@ -31,3 +31,12 @@ toggleFormButton.forEach(function(btn) {
     evt.target.nextElementSibling.classList.toggle('edit-review-form')
   })
 })
+
+//Add click listener for clearing rating on edit/new form
+let clearButtons = document.querySelectorAll(".clear-rating");
+
+clearButtons.forEach(function(btn){
+  btn.addEventListener("click", function(evt){
+    this.nextElementSibling.click();
+  })
+})
