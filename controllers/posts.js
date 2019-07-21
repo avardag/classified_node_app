@@ -121,6 +121,7 @@ module.exports = {
       await cloudinary.v2.uploader.destroy(image.public_id);
     }
     await postToDelete.remove();
+    req.session.success = "Post deleted successfully"
     //redirect after images of the post deleted from cloudinary and post itsef deleted
     res.redirect('/posts')
   }

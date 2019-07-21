@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const Review = require("./review");
 
 const postSchema = new mongoose.Schema({
   title: String,
@@ -23,6 +23,13 @@ const postSchema = new mongoose.Schema({
       ref: 'Review'
     }
   ]
+})
+postSchema.pre('remove', async function(){ //not => to geta acces to lexcal THIS
+  await Review.remove({
+    _id:{
+      $in: this.reviews
+    }
+  })
 })
 
 const Post = mongoose.model("Post", postSchema);
