@@ -70,14 +70,18 @@ passport.deserializeUser(User.deserializeUser());
 //set local variables MW
 app.use(function(req, res, next) {
   //TEMPORARILY
-  // req.user = {
-  //   '_id': '5d27bb2dd283672b294c6ff4',
-  //   'username':"Alex"
-  // }
   req.user = {
-    '_id': '5d27c31e76af7d2fc35e29b1',
-    'username':"Alex23"
+    '_id': '5d27bb2dd283672b294c6ff4',
+    'username':"Alex"
   }
+  // req.user = {
+  //   '_id': '5d27c31e76af7d2fc35e29b1',
+  //   'username':"Alex23"
+  // }
+  // req.user = {
+  //   '_id': '5d27bcd58358512c65dcacb6',
+  //   'username':"Alex2"
+  // }
   res.locals.currentUser = req.user;
   //END TEMPORARILY
   //set default page title

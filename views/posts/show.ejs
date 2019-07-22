@@ -4,6 +4,7 @@
 <div class="">Price: <%= post.price %></div>
 <div class=""><%= post.description %></div>
 <div class=""><%= post.location %></div>
+<div class="">Avarage rating: <%= post.avgRating %></div>
 <div class="">
   <% post.images.forEach(image=> { %>
     <img src="<%= image.url %>" alt="" width="200px">

@@ -62,7 +62,9 @@ module.exports = {
           model: 'User'
         }
       });
-    res.render("posts/show", { post })
+    //send posts Avg rating
+    const floorRating = post.calculateAvgRating();
+    res.render("posts/show", { post, floorRating })
   },
   /* GET - edit - /posts/:id/edit */
   async postEdit(req, res, next){

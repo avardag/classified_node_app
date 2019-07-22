@@ -23,7 +23,11 @@ const postSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review'
     }
-  ]
+  ],
+  avgRating: {
+    type: Number,
+    default: 0
+  },
 })
 postSchema.pre('remove', async function(){ //not => to geta acces to lexcal THIS
   await Review.remove({
@@ -33,6 +37,22 @@ postSchema.pre('remove', async function(){ //not => to geta acces to lexcal THIS
   })
 })
 
+postSchema.methods.calculateAvgRating = function () {
+  let ratingTotal = 0;
+  if (this.reviews.length > 0) { //if there are reviews
+    this.reviews.forEach(review => {
+      ratingTotal += review.rating;
+    });
+    this.avgRating = Math.round((ratingTotal / this.reviews.length) * 10) / 10;
+  } else { //there are no reviews
+    this.avgRating = ratingTotal; // i.e 0
+  }
+ 
+  const floorRating = Math.floor(this.avgRating);
+  this.save(); //save the post
+
+  return floorRating;
+}
 postSchema.plugin(mongoosePaginate);
 
 const Post = mongoose.model("Post", postSchema);
