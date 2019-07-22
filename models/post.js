@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const Review = require("./review");
+const mongoosePaginate = require('mongoose-paginate');
 
 const postSchema = new mongoose.Schema({
   title: String,
@@ -31,6 +32,8 @@ postSchema.pre('remove', async function(){ //not => to geta acces to lexcal THIS
     }
   })
 })
+
+postSchema.plugin(mongoosePaginate);
 
 const Post = mongoose.model("Post", postSchema);
 

@@ -1,0 +1,17 @@
+<div style="margin: 20px 0;">
+  <h5>Posts.page <%= posts.page %></h5>
+  <h5>Posts.pages <%= posts.pages %></h5>
+  <% if(posts.page > 1){ %>
+    <a href="/posts?page=<%= posts.page -1 %>">Prev</a>
+  <% } %>
+  <% for(let i = 1; i <= posts.pages; i++){ %>
+    <a 
+      href="/posts?page=<%= i %>"
+      <%= i === posts.page ? "style=color:#000;" : "" %> 
+    ><%= i %></a>
+  <% } %>
+  
+  <% if(posts.page < posts.pages){ %>
+    <a href="/posts?page=<%= posts.page +1 %>">Next</a>
+  <% } %>
+</div>

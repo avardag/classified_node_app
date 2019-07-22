@@ -9,6 +9,9 @@ const session = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+//to seed faker data
+// const seedPosts = require('./seed');
+// seedPosts();
 
 //DB models imports
 const User = require('./models/user');

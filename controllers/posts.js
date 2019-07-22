@@ -11,7 +11,15 @@ cloudinary.config({
 module.exports = {
   //Posts index : GET /posts
   async postIndex(req, res, next){
-    let posts = await Post.find({});
+    let posts = await Post.paginate({}, {
+      page: req.query.page || 1, // /posts?page=2
+      limit: 10
+    });
+    // .paginate returns object wit keys:
+    // docs: array of 10 posts, total: total num of posts in db
+    // limit: 10, page: 1, pages: 40
+    posts.page = Number(posts.page)
+    posts.pages = Number(posts.pages)
     res.render("posts/index", { posts });
   },
   // GET - renders post form - /posts/new
