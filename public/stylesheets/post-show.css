@@ -27,3 +27,7 @@
 .clear-rating{
   display: block;
 }
+
+.rating-stars i{
+  color: #FFD700;
+}
