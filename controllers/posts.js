@@ -20,7 +20,7 @@ module.exports = {
     // limit: 10, page: 1, pages: 40
     posts.page = Number(posts.page)
     posts.pages = Number(posts.pages)
-    res.render("posts/index", { posts });
+    res.render("posts/index", { posts, MBXToken: process.env.MBX_ACCESS_TOKEN });
   },
   // GET - renders post form - /posts/new
   postNew(req, res, next){

@@ -1,6 +1,8 @@
 <% layout('layouts/boilerplate') -%>
 
 <h1>Posts index</h1>
+<div id="map"></div>
+
 <!-- pagination -->
 <% include ../partials/paginatePostsPartial %>
 
@@ -16,4 +18,13 @@
 
 <!-- pagination -->
 <% include ../partials/paginatePostsPartial %>
+
+<script>
+  //get mapbpx access token passed (as local var) to view from controllers MW
+  mapboxgl.accessToken = "<%= MBXToken %>"
+  // create new obj to be used by map.
+  // JSON.stringify(posts) -> posts.docs come from controller as local var
+  var posts = { type: "FeatureCollection", features: <%- JSON.stringify(posts.docs) %>}
+</script>
+<script src="/javascripts/allPostsClusterMap.js"></script>
 

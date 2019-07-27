@@ -27,6 +27,7 @@
     "passport-local-mongoose": "^5.0.1"
   },
   "devDependencies": {
+    "cities.json": "^1.1.5",
     "dotenv": "^8.0.0",
     "faker": "^4.1.0",
     "locus": "^2.0.1",
